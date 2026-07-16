@@ -10,7 +10,7 @@ from langchain_community.vectorstores import InMemoryVectorStore
 import streamlit as st
 from time import sleep
 
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
+llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite")
 
 if "vector_db" not in st.session_state:
     st.session_state.vector_db = None
@@ -36,7 +36,7 @@ def document_process(path):
 
     #EMBEDDING AND VECTOR STORING
 
-    embeddings = GoogleGenerativeAIEmbeddings(model="gemini-embedding-2-preview")
+    embeddings = GoogleGenerativeAIEmbeddings(model="gemini-embedding-001")
     vector_db = InMemoryVectorStore.from_documents(documents=docs, embedding=embeddings)
 
     st.session_state.vector_db = vector_db
@@ -104,7 +104,7 @@ if st.session_state.document_uploaded and st.session_state.vector_db:
     query = st.chat_input("Ask Anything...")
     if query:
         ##these two line to show whose message and what content
-        st.session_state.messages.append({"role": "user","content":"query"})
+        st.session_state.messages.append({"role": "user","content": query})
         st.chat_message("user").markdown(query)
 
         documents = st.session_state.vector_db.similarity_search(query)
@@ -118,9 +118,9 @@ if st.session_state.document_uploaded and st.session_state.vector_db:
         result = llm.invoke(prompt)
 
         #this one line to show whose message and what content
-        st.session_state.messages.append({"role": "ai","content":"result.content[0]['text']"})
+        st.session_state.messages.append({"role": "ai","content": result.content})
 
-        st.chat_message("ai").markdown(result.content['text'])
+        st.chat_message("ai").markdown(result.content)
 
 
 
