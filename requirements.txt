@@ -105,3 +105,14 @@ webencodings==0.5.1
 websocket-client==1.9.0
 widgetsnbextension==4.0.15
 python-dotenv
+streamlit
+python-dotenv
+
+langchain
+langchain-community
+langchain-text-splitters
+langchain-google-genai
+
+google-generativeai
+
+pypdf
