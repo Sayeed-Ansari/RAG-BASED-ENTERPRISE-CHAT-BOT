@@ -118,9 +118,9 @@ if st.session_state.document_uploaded and st.session_state.vector_db:
         result = llm.invoke(prompt)
 
         #this one line to show whose message and what content
-        st.session_state.messages.append({"role": "ai","content": result.content})
+        st.session_state.messages.append({"role": "ai","content": result.content[0]['text']})
 
-        st.chat_message("ai").markdown(result.content)
+        st.chat_message("ai").markdown(result.content[0]['text'])
 
 
 
